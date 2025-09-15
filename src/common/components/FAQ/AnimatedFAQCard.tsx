@@ -61,7 +61,7 @@ const createStyles = (theme: ITheme) =>
     card: {
       backgroundColor: theme.white,
       borderRadius: 12,
-      padding: 12,
+      padding: 14,
       marginBottom: 8,
       borderColor: theme.borderColor,
       borderWidth: 1,

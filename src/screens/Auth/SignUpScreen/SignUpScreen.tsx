@@ -104,11 +104,7 @@ export const SignUpScreen = () => {
   }, []);
 
   const header =
-    step === ESignUpStep.PHONE
-      ? { title: 'Sign Up', subtitle: 'Verify your phone to begin' }
-      : step === ESignUpStep.OTP_PHONE
-      ? { title: 'Verify Phone', subtitle: 'Enter the 6-digit code we sent' }
-      : { title: 'Complete Your Profile', subtitle: 'Just a few final details' };
+    step === ESignUpStep.PHONE ? { title: 'Sign Up', subtitle: 'Verify your phone to begin' } : step === ESignUpStep.OTP_PHONE ? { title: 'Verify Phone', subtitle: 'Enter the 6-digit code we sent' } : { title: 'Complete Your Profile', subtitle: 'Just a few final details' };
 
   return (
     <ScrollViewContainer style={styles.scrollContent}>
@@ -166,10 +162,10 @@ export const SignUpScreen = () => {
 
             {step === ESignUpStep.FORM && (
               <>
-                <FormTextInput  addonBefore={<UserIcon />} name="firstName" placeholder="First Name" required />
-                <FormTextInput  addonBefore={<UserIcon />} name="lastName" placeholder="Last Name" required />
-                <FormTextInput  addonBefore={<EnvelopIcon />} name="email" placeholder="Email" />
-                <FormUploadDocument name="ldaCard"  placeholder="Upload LDA Card" required multiple max={3} />
+                <FormTextInput addonBefore={<UserIcon />} name="firstName" placeholder="First Name" required />
+                <FormTextInput addonBefore={<UserIcon />} name="lastName" placeholder="Last Name" required />
+                <FormTextInput addonBefore={<EnvelopIcon />} name="email" placeholder="Email" />
+                <FormUploadDocument name="ldaCard" placeholder="Upload LDA Card" required multiple max={3} />
                 <Button title="Finish Sign Up" style={styles.buttonContainer} onPress={formMethods.handleSubmit(handleFinish)} />
               </>
             )}

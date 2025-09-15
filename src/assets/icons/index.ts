@@ -1,12 +1,9 @@
 export * from './HomeIcon';
-export * from './PoliciesIcon';
-export * from './MoreIcon';
+export * from './OrdersIcon';
 export * from './PhoneIcon';
 export * from './NotificationIcon';
-export * from './ProfileIcon';
 export * from './LocationIcon';
 export * from './EmailIcon';
-export * from './PaymentIcon';
 export * from './FAQIcon';
 export * from './PrivacyIcon';
 export * from './RightArrowIcon';
@@ -26,4 +23,9 @@ export * from './LogoIcon';
 export * from './CheckIcon';
 export * from './DoneIcon';
 export * from './UploadIcon';
+
+export * from './CartIcon';
+export * from './SettingsIcon';
 export * from './ArrowDownIcon';
+export * from './ShopIcon';
+export * from './LogoutIcon';

@@ -8,7 +8,7 @@ export interface IAuthSignUp {
   firstName: string;
   lastName: string;
   email?: string;
-ldaCard: Asset[];
+  ldaCard: Asset[];
 }
 
 export enum ESignUpStep {

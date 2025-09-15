@@ -8,10 +8,10 @@ export const TermsAndConditionsScreen = () => {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <ScrollViewContainer>
+    <ScrollViewContainer style={styles.container}>
       <Text style={styles.subTitleItalic}>Effective Date: June 1, 2025</Text>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>1. Introduction</Text>
         <Text style={styles.paragraph}>
           Welcome to <Text style={styles.linkColor}>DMS</Text>! These Terms and Conditions explain the rules and guidelines for using our application. By accessing or using the app, you agree to comply with these Terms.
@@ -22,7 +22,7 @@ export const TermsAndConditionsScreen = () => {
         </Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>2. User Responsibilities</Text>
         <Text style={styles.paragraph}>By using this app, you agree to the following responsibilities:</Text>
         <Text style={styles.paragraph}>
@@ -34,7 +34,7 @@ export const TermsAndConditionsScreen = () => {
         <Text style={styles.paragraph}>Failure to meet these responsibilities may result in suspension or termination of your account.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>3. Services Provided</Text>
         <Text style={styles.paragraph}>
           The <Text style={styles.linkColor}>DMS</Text> app provides tools for viewing and managing dummy insurance policies, submitting claims, accessing support, and keeping track of policy updates.
@@ -42,19 +42,19 @@ export const TermsAndConditionsScreen = () => {
         <Text style={styles.paragraph}>We may add, remove, or update features from time to time to improve your experience. Some services may be limited to certain countries or require specific eligibility criteria.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>4. Limitations</Text>
         <Text style={styles.paragraph}>While we aim to provide reliable services, we cannot guarantee the app will always be available, free from errors, or meet every expectation.</Text>
         <Text style={styles.paragraph}>The app may occasionally be unavailable due to maintenance, updates, or technical issues. We are not responsible for data loss, delays, or inaccuracies caused by user error, device compatibility, or third-party services.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>5. Termination</Text>
         <Text style={styles.paragraph}>We reserve the right to suspend or terminate your account if you violate these Terms, misuse the app, or engage in fraudulent activity.</Text>
         <Text style={styles.paragraph}>You may also delete your account at any time by contacting our support team. Upon termination, you may lose access to your data and related features within the app.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>6. Contact Us</Text>
         <Text style={styles.paragraph}>
           If you have any questions about these Terms, please contact us at:{' '}
@@ -80,23 +80,16 @@ const createStyles = (theme: ITheme) =>
       fontSize: 15,
       fontStyle: 'italic',
       fontWeight: 'bold',
-      color: theme.appSecondaryColor,
+      color: theme.danger,
       marginBottom: 20,
     },
-    card: {
-      backgroundColor: theme.white,
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 16,
-      shadowColor: '#000',
-      shadowOpacity: 0.05,
-      shadowRadius: 4,
-      shadowOffset: { width: 0, height: 2 },
-      elevation: 2,
+    section: {
+      marginBottom: 20,
     },
     sectionTitle: {
-      fontSize: 18,
+      fontSize: 19,
       fontWeight: 'bold',
+      textDecorationLine: 'underline',
       color: theme.appMainColor,
       marginBottom: 8,
     },

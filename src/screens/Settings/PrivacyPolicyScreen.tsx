@@ -8,10 +8,10 @@ export const PrivacyPolicyScreen = () => {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <ScrollViewContainer>
+    <ScrollViewContainer style={styles.container}>
       <Text style={styles.subTitleItalic}>Effective Date: June 1, 2025</Text>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>Introduction</Text>
         <Text style={styles.paragraph}>
           <Text style={styles.linkColor}>DMS</Text> ("we", "us", or "our") operates the <Text style={styles.linkColor}>DMS</Text> Insurance mobile application and website (collectively, the "Service").
@@ -21,7 +21,7 @@ export const PrivacyPolicyScreen = () => {
         </Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>1. Definitions</Text>
         <Text style={styles.paragraph}>
           <Text style={styles.boldText}>Personal Data: </Text>Information that identifies you, such as your name, email, phone number, address, and policy details.
@@ -38,7 +38,7 @@ export const PrivacyPolicyScreen = () => {
         </Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>2. Information Collection & Use</Text>
         <Text style={styles.paragraph}>We collect different types of information to provide and improve our Service:</Text>
         <Text style={styles.paragraph}>
@@ -51,7 +51,7 @@ export const PrivacyPolicyScreen = () => {
         </Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>3. Use of Data</Text>
         <Text style={styles.paragraph}>
           <Text style={styles.linkColor}>DMS</Text> uses collected data for purposes including:
@@ -66,7 +66,7 @@ export const PrivacyPolicyScreen = () => {
         </Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>4. Sharing of Data</Text>
         <Text style={styles.paragraph}>We may share your information with trusted third parties:</Text>
         <Text style={styles.paragraph}>
@@ -77,34 +77,33 @@ export const PrivacyPolicyScreen = () => {
         </Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>5. Security</Text>
         <Text style={styles.paragraph}>We implement reasonable measures to protect your information, including encryption, restricted access, and regular security audits. However, no method of transmission or storage is completely secure.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>6. Data Retention</Text>
         <Text style={styles.paragraph}>We retain your data only as long as necessary for the purposes outlined in this Privacy Policy or as required by law. Once retention periods expire, your data is deleted or anonymized.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>7. Children's Privacy</Text>
         <Text style={styles.paragraph}>Our Service is not intended for children under 18. We do not knowingly collect personal data from minors. If you believe we have done so, please contact us immediately.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>8. Changes to This Policy</Text>
         <Text style={styles.paragraph}>We may update this Privacy Policy from time to time. Any changes will be posted here with an updated "Effective Date." Material changes may also be communicated by email or in-app notification.</Text>
       </View>
 
-      <View style={styles.card}>
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>9. Contact Us</Text>
         <Text style={styles.paragraph}>
-          If you have questions about this Privacy Policy, contact us at:{'\n\n'}
+          If you have questions about this Privacy Policy, contact us at:{' '}
           <Text style={styles.linkColor} onPress={() => Linking.openURL('mailto:info@dms.com')}>
             info@dms.com
-          </Text>
-          {'\n'}
+          </Text>{' '}
           Or visit:{' '}
           <Text style={styles.linkColor} onPress={() => Linking.openURL('https://www.dms.com')}>
             www.dms.com
@@ -117,27 +116,24 @@ export const PrivacyPolicyScreen = () => {
 
 const createStyles = (theme: ITheme) =>
   StyleSheet.create({
+    container: {
+      padding: 16,
+      backgroundColor: theme.white,
+    },
     subTitleItalic: {
       fontSize: 15,
       fontStyle: 'italic',
       fontWeight: 'bold',
-      color: theme.appSecondaryColor,
+      color: theme.danger,
       marginBottom: 20,
     },
-    card: {
-      backgroundColor: theme.white,
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 16,
-      shadowColor: '#000',
-      shadowOpacity: 0.05,
-      shadowRadius: 4,
-      shadowOffset: { width: 0, height: 2 },
-      elevation: 2,
+    section: {
+      marginBottom: 20,
     },
     sectionTitle: {
-      fontSize: 18,
+      fontSize: 19,
       fontWeight: 'bold',
+      textDecorationLine: 'underline',
       color: theme.appMainColor,
       marginBottom: 8,
     },

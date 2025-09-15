@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Pressable } from 'react-native';
 import { useTheme } from '../../src/theme';
-import { HomeIcon, MoreIcon, PaymentIcon, PoliciesIcon, ProfileIcon } from '../assets/icons';
+import { HomeIcon, OrdersIcon, ShopIcon, SettingsIcon, CartIcon } from '../assets/icons';
 import { FAQsScreen } from '../screens/Settings/FAQsScreen';
 import { SettingsScreen } from '../screens/Settings/SettingsScreen';
 import { PrivacyPolicyScreen } from '../screens/Settings/PrivacyPolicyScreen';
@@ -75,10 +75,11 @@ export const MainNavigator = () => {
         },
         tabBarLabelStyle: {
           fontSize: 12,
+          fontWeight: '600',
           paddingTop: 5,
         },
         tabBarPosition: 'bottom',
-        tabBarActiveTintColor: theme.appMainColor,
+        tabBarActiveTintColor: theme.appSecondaryColor,
         tabBarInactiveTintColor: theme.black,
 
         tabBarButton: props => (
@@ -89,10 +90,10 @@ export const MainNavigator = () => {
       }}
     >
       <Tab.Screen name="HomeTab" options={{ title: 'Home', headerShown: false, tabBarIcon: ({ focused }) => <HomeIcon focused={focused} /> }} component={HomeStack} />
-      <Tab.Screen name="OrdersTab" options={{ title: 'Orders', headerTitle: 'Orders', tabBarIcon: ({ focused }) => <PoliciesIcon focused={focused} /> }} component={OrdersScreen} />
-      <Tab.Screen name="ShopTab" options={{ title: 'Shop', headerTitle: 'Shop', tabBarIcon: ({ focused }) => <PaymentIcon focused={focused} /> }} component={ShopScreen} />
-      <Tab.Screen name="CartTab" options={{ title: 'Cart', headerTitle: 'Cart', tabBarIcon: ({ focused }) => <ProfileIcon focused={focused} /> }} component={CartScreen} />
-      <Tab.Screen name="SettingsTab" options={{ title: 'Settings', headerShown: false, tabBarIcon: ({ focused }) => <MoreIcon focused={focused} /> }} component={SettingsStack} />
+      <Tab.Screen name="OrdersTab" options={{ title: 'Orders', headerTitle: 'Orders', tabBarIcon: ({ focused }) => <OrdersIcon focused={focused} /> }} component={OrdersScreen} />
+      <Tab.Screen name="ShopTab" options={{ title: 'Shop', headerTitle: 'Shop', tabBarIcon: ({ focused }) => <ShopIcon focused={focused} /> }} component={ShopScreen} />
+      <Tab.Screen name="CartTab" options={{ title: 'Cart', headerTitle: 'Cart', tabBarIcon: ({ focused }) => <CartIcon focused={focused} /> }} component={CartScreen} />
+      <Tab.Screen name="SettingsTab" options={{ title: 'Settings', headerShown: false, tabBarIcon: ({ focused }) => <SettingsIcon focused={focused} /> }} component={SettingsStack} />
     </Tab.Navigator>
   );
 };

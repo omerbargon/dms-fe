@@ -35,10 +35,8 @@ export const createSchema = (): ObjectSchema<IAuthSignUp> =>
     email: string().email('Please enter a valid email address').optional(),
 
     ldaCard: array()
-      .of(assetItem)                      
-      .transform((v: unknown): Asset[] => 
-        Array.isArray(v) ? (v.filter(Boolean) as Asset[]) : []
-      )
+      .of(assetItem)
+      .transform((v: unknown): Asset[] => (Array.isArray(v) ? (v.filter(Boolean) as Asset[]) : []))
       .min(1, 'At least 1 LDA image is required')
       .max(3, 'You can upload up to 3 LDA images')
       .required('LDA card is required')

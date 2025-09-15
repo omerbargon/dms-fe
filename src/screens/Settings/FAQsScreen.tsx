@@ -2,12 +2,8 @@ import { ITheme, useTheme } from '../../../src/theme';
 import { ScrollViewContainer } from '../../../src/common/components/Container/ScrollViewContainer';
 import { AnimatedFAQCard } from '../../../src/common/components/FAQ/AnimatedFAQCard';
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, Text, LayoutAnimation, Platform, UIManager, SectionList, SectionListRenderItemInfo } from 'react-native';
+import { StyleSheet, Text, LayoutAnimation, SectionList, SectionListRenderItemInfo } from 'react-native';
 import { FAQItem, FAQSection, getFaqs } from '../../../src/mocks/faqs.data';
-
-if (Platform.OS === 'android') {
-  UIManager.setLayoutAnimationEnabledExperimental?.(true);
-}
 
 type ExpandedIndex = {
   section: number;

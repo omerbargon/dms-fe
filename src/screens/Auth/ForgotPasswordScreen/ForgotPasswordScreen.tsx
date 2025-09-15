@@ -47,15 +47,13 @@ export const ForgotPasswordScreen = () => {
             <FormTextInput name="email" addonBefore={<EnvelopIcon />} placeholder="Email" required />
             <Button title="Send Link" style={styles.buttonContainer} onPress={formMethods.handleSubmit(handleSendResetLink)} />
           </FormProvider>
-                  <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>Remember your password?</Text>
-          <Pressable onPress={handleBackToSignIn} hitSlop={10}>
-            <Text style={styles.footerLink}> Sign In</Text>
-          </Pressable>
+          <View style={styles.footerContainer}>
+            <Text style={styles.footerText}>Remember your password?</Text>
+            <Pressable onPress={handleBackToSignIn} hitSlop={10}>
+              <Text style={styles.footerLink}> Sign In</Text>
+            </Pressable>
+          </View>
         </View>
-        </View>
-
-
       </View>
     </ScrollViewContainer>
   );
@@ -106,7 +104,7 @@ const createStyles = (theme: ITheme) =>
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
-      marginTop: 8
+      marginTop: 8,
     },
     footerText: {
       fontSize: 15,
