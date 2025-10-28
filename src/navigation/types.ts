@@ -1,3 +1,5 @@
+import { Order } from '../screens/Orders/OrderItemScreen';
+
 export type RootStackParamList = {
   // HOME STACK
   HomeScreen: undefined;
@@ -6,6 +8,10 @@ export type RootStackParamList = {
   PrivacyPolicy: undefined;
   TermsAndConditions: undefined;
   FAQs: undefined;
+  OrdersScreen: undefined;
+  OrderItemScreen: { order: Order };
+  ShopScreen: undefined;
+  ProductScreen: { product: string };
 };
 
 export type RootBottomTabStackParamList = {

@@ -1,9 +1,7 @@
 import React from 'react';
 import Svg, { G, Path } from 'react-native-svg';
-import { useTheme } from '../../../src/theme';
 
 export const LogoutIcon = () => {
-  const { theme } = useTheme();
   return (
     <Svg width="24" height="24" viewBox="0 0 24 24">
       <G fill="none" stroke="#fff" strokeLinecap="round" strokeWidth="1.5">

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, I18nManager, Pressable, StyleSheet, Switch, Text, View } from 'react-native';
+import { ActivityIndicator, I18nManager, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { FAQIcon, LanguageIcon, LogoutIcon, MoonIcon, NotificationIcon, PrivacyIcon, RightArrowIcon, SunIcon, TermsIcon } from '../../assets/icons';
 import { Button } from '../../../src/common/components/Button/Button';
@@ -273,7 +273,7 @@ const createStyles = (theme: ITheme) =>
       marginBottom: 16,
       borderWidth: 1.25,
       paddingBottom: 8,
-      borderColor: theme.appSecondaryColor,
+      borderColor: theme.borderColor,
       borderRadius: 12,
     },
     cardHeader: {
@@ -387,7 +387,7 @@ const createStyles = (theme: ITheme) =>
       opacity: 0.6,
     },
     modalTitle: {
-      fontSize: 24,
+      fontSize: 21,
       fontWeight: '800',
       color: theme.black,
       textAlign: 'center',
@@ -408,7 +408,7 @@ const createStyles = (theme: ITheme) =>
     },
     optionCard: {
       borderRadius: 12,
-      borderWidth: 2,
+      borderWidth: 1,
       borderColor: theme.borderColor + '40',
       backgroundColor: theme.white,
       position: 'relative',
@@ -446,7 +446,7 @@ const createStyles = (theme: ITheme) =>
       fontWeight: '700',
     },
     optionDescription: {
-      fontSize: 14,
+      fontSize: 13,
       color: theme.gray,
       opacity: 0.8,
     },
@@ -483,7 +483,7 @@ const createStyles = (theme: ITheme) =>
     loadingCard: {
       backgroundColor: theme.white,
       padding: 36,
-      borderRadius: 24,
+      borderRadius: 16,
       alignItems: 'center',
       marginHorizontal: 40,
       shadowColor: '#000',

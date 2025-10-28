@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { Pressable } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 import { useTheme } from '../../src/theme';
-import { HomeIcon, OrdersIcon, ShopIcon, SettingsIcon, CartIcon } from '../assets/icons';
+import { HomeIcon, OrdersIcon, ShopIcon, SettingsIcon, CartIcon, NotificationIcon } from '../assets/icons';
 import { FAQsScreen } from '../screens/Settings/FAQsScreen';
 import { SettingsScreen } from '../screens/Settings/SettingsScreen';
 import { PrivacyPolicyScreen } from '../screens/Settings/PrivacyPolicyScreen';
@@ -13,6 +13,8 @@ import { RootBottomTabStackParamList, RootStackParamList } from './types';
 import { HomeScreen } from '../screens/Home/HomeScreen';
 import { ShopScreen } from '../screens/Shop/ShopScreen';
 import { OrdersScreen } from '../screens/Orders/OrdersScreen';
+import { OrderItemScreen } from '../screens/Orders/OrderItemScreen';
+import { ProductScreen } from '../screens/Shop/ProductScreen';
 
 const Tab = createBottomTabNavigator<RootBottomTabStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -25,15 +27,70 @@ const HomeStack = () => {
         headerStyle: {
           backgroundColor: theme.white,
         },
+        headerTitle: '',
+        headerShadowVisible: false,
+        headerBackVisible: false,
+      }}
+    >
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          headerLeft: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              <Image source={require('../assets/images/dms-user.png')} style={{ width: 42, height: 42, borderRadius: 24, borderWidth: 1, borderColor: theme.borderColor }} />
+              <Text style={{ fontSize: 16, fontWeight: '700', color: theme.black }}>Dr. Sarah Johnson</Text>
+            </View>
+          ),
+          headerRight: () => (
+            <Pressable onPress={() => console.log('Notifications pressed')}>
+              <NotificationIcon />
+            </Pressable>
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const OrdersStack = () => {
+  const { theme } = useTheme();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.white,
+        },
         headerTitleStyle: {
           color: theme.black,
         },
         headerTintColor: theme.black,
         headerShadowVisible: false,
-        headerBackButtonDisplayMode: 'minimal',
       }}
     >
-      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerTitle: 'Home' }} />
+      <Stack.Screen name="OrdersScreen" component={OrdersScreen} options={{ headerTitle: 'Orders' }} />
+      <Stack.Screen name="OrderItemScreen" component={OrderItemScreen} options={{ headerTitle: 'Order Details' }} />
+    </Stack.Navigator>
+  );
+};
+
+const ShopStack = () => {
+  const { theme } = useTheme();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.white,
+        },
+        headerTitleStyle: {
+          color: theme.black,
+        },
+        headerTintColor: theme.black,
+        headerShadowVisible: false,
+      }}
+    >
+      <Stack.Screen name="ShopScreen" component={ShopScreen} options={{ headerTitle: 'Shop' }} />
+      <Stack.Screen name="ProductScreen" component={ProductScreen} options={{ headerTitle: 'Product Details' }} />
     </Stack.Navigator>
   );
 };
@@ -73,15 +130,21 @@ export const MainNavigator = () => {
           backgroundColor: theme.white,
           borderColor: theme.borderColor,
         },
+        headerStyle: {
+          backgroundColor: theme.white,
+        },
+        headerTitleStyle: {
+          color: theme.black,
+        },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
           paddingTop: 5,
         },
+        headerShadowVisible: false,
         tabBarPosition: 'bottom',
         tabBarActiveTintColor: theme.appSecondaryColor,
         tabBarInactiveTintColor: theme.black,
-
         tabBarButton: props => (
           <Pressable android_ripple={{ color: 'transparent' }} style={props.style} onPress={props.onPress}>
             {props.children}
@@ -90,8 +153,8 @@ export const MainNavigator = () => {
       }}
     >
       <Tab.Screen name="HomeTab" options={{ title: 'Home', headerShown: false, tabBarIcon: ({ focused }) => <HomeIcon focused={focused} /> }} component={HomeStack} />
-      <Tab.Screen name="OrdersTab" options={{ title: 'Orders', headerTitle: 'Orders', tabBarIcon: ({ focused }) => <OrdersIcon focused={focused} /> }} component={OrdersScreen} />
-      <Tab.Screen name="ShopTab" options={{ title: 'Shop', headerTitle: 'Shop', tabBarIcon: ({ focused }) => <ShopIcon focused={focused} /> }} component={ShopScreen} />
+      <Tab.Screen name="OrdersTab" options={{ title: 'Orders', headerShown: false, tabBarIcon: ({ focused }) => <OrdersIcon focused={focused} /> }} component={OrdersStack} />
+      <Tab.Screen name="ShopTab" options={{ title: 'Shop', headerShown: false, tabBarIcon: ({ focused }) => <ShopIcon focused={focused} /> }} component={ShopStack} />
       <Tab.Screen name="CartTab" options={{ title: 'Cart', headerTitle: 'Cart', tabBarIcon: ({ focused }) => <CartIcon focused={focused} /> }} component={CartScreen} />
       <Tab.Screen name="SettingsTab" options={{ title: 'Settings', headerShown: false, tabBarIcon: ({ focused }) => <SettingsIcon focused={focused} /> }} component={SettingsStack} />
     </Tab.Navigator>

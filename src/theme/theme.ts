@@ -7,7 +7,7 @@ export const createTheme = (mode: ThemeMode) => ({
   appMainColor: APP_MAIN_COLOR,
   appSecondaryColor: APP_SECONDARY_COLOR,
   selectedMainColor: '#292A7244',
-  selectedSecondaryColor: mode === 'light' ? '#17a8d833' : '#17a8d833',
+  selectedSecondaryColor: mode === 'light' ? '#17a8d824' : '#17a8d833',
   black: mode === 'light' ? '#1e1e1e' : '#FFFFFF',
   white: mode === 'light' ? '#FFFFFF' : '#1e1e1e',
   borderColor: mode === 'light' ? '#E0E0E0' : '#3A3A3E',
@@ -15,5 +15,7 @@ export const createTheme = (mode: ThemeMode) => ({
   success: '#08851B',
   danger: '#D32F2F',
   linkColor: '#E09600',
+  warning: '#FFBF00',
   placeholder: '#A9A9A9',
+  inputColor: mode === 'light' ? '#F3F3F3EE' : '#292a722f',
 });
