@@ -2,136 +2,28 @@ import { CartIcon, CrownIcon, CubeIcon, DentistIcon, RightArrowIcon, SearchIcon,
 import { ITheme, useTheme } from '../../../src/theme';
 import React, { useMemo } from 'react';
 import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, FlatList, Image } from 'react-native';
-
-const featuredProducts = [
-  {
-    id: '1',
-    title: 'Premium Composite Kit',
-    subtitle: 'Restorative Materials',
-    discount: '25',
-    price: '$149.99',
-    originalPrice: '$199.99',
-    rating: '4.9',
-    image: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=300&fit=crop&crop=center',
-  },
-  {
-    id: '',
-    title: 'Orthodontic Starter Pack',
-    subtitle: 'Orthodontics',
-    discount: '30',
-    price: '$199.99',
-    originalPrice: '$285.99',
-    rating: '4.9',
-    image: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=400&h=300&fit=crop&crop=center',
-  },
-  {
-    id: '3',
-    title: 'Digital Impression Scanner',
-    subtitle: 'Prosthodontics',
-    discount: '15',
-    price: '$2,299.99',
-    originalPrice: '$2,699.99',
-    rating: '4.8',
-    image: 'https://images.unsplash.com/photo-1581591524425-c7e0978865fc?w=400&h=300&fit=crop&crop=center',
-  },
-];
-
-const categories = [
-  {
-    id: '1',
-    name: 'Restorative',
-    count: '2.4k products',
-    icon: 'https://img.icons8.com/fluency/96/tooth.png',
-  },
-  {
-    id: '2',
-    name: 'Endodontics',
-    count: '1.8k products',
-    icon: 'https://img.icons8.com/fluency/96/stethoscope.png',
-  },
-  {
-    id: '3',
-    name: 'Prosthodontics',
-    count: '3.1k products',
-    icon: '',
-  },
-  {
-    id: '4',
-    name: 'Orthodontics',
-    count: '1.5k products',
-    icon: '',
-  },
-  {
-    id: '5',
-    name: 'Surgery',
-    count: '890 products',
-    icon: '',
-  },
-  {
-    id: '6',
-    name: 'Preventive',
-    count: '1.2k products',
-    icon: 'https://img.icons8.com/fluency/96/shield.png',
-  },
-];
-
-const brands = [
-  {
-    id: '1',
-    name: '3M ESPE',
-    logo: 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=200&fit=crop',
-    products: '240+ products',
-  },
-  {
-    id: '2',
-    name: 'Dentsply Sirona',
-    logo: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=200&h=200&fit=crop',
-    products: '180+ products',
-  },
-  {
-    id: '3',
-    name: 'Ivoclar Vivadent',
-    logo: 'https://images.unsplash.com/photo-1634128221889-82ed6efebfc3?w=200&h=200&fit=crop',
-    products: '150+ products',
-  },
-  {
-    id: '4',
-    name: 'Colgate',
-    logo: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=200&h=200&fit=crop',
-    products: '320+ products',
-  },
-  {
-    id: '5',
-    name: 'GC Corporation',
-    logo: '',
-    products: '95+ products',
-  },
-  {
-    id: '6',
-    name: 'Kerr Dental',
-    logo: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=200&h=200&fit=crop',
-    products: '110+ products',
-  },
-];
+import { categories, Category } from '../../../src/mocks/category.data';
+import { Brand, brands } from '../../../src/mocks/brand.data';
+import { Product, products } from '../../../src/mocks/product.data';
 
 export const HomeScreen = () => {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const renderBrand = ({ item, index }: any) => (
+  const renderBrand = ({ item, index }: { item: Brand; index: number }) => (
     <Pressable style={[styles.brandCard, index !== brands.length - 1 && { marginRight: 12 }]}>
-      <View style={[styles.brandLogoContainer, { backgroundColor: item.bgColor }]}>
+      <View style={styles.brandLogoContainer}>
         {item.logo ? <Image source={{ uri: item.logo }} style={styles.brandLogo} resizeMode="contain" /> : <Image source={require('../../assets/images/dms-product.jpg')} style={[styles.productImage, { borderRadius: 30 }]} resizeMode="cover" />}
       </View>
       <View style={styles.brandInfo}>
         <Text style={styles.brandName}>{item.name}</Text>
-        <Text style={styles.brandProducts}>{item.products}</Text>
+        <Text style={styles.brandProducts}>{item.productsCount}+</Text>
       </View>
     </Pressable>
   );
 
-  const renderFeaturedProduct = ({ item, index }: any) => (
-    <Pressable style={[styles.featuredCard, index !== featuredProducts.length - 1 && { marginRight: 12 }]} android_ripple={{ color: '#ddd' }}>
+  const renderFeaturedProduct = ({ item, index }: { item: Product; index: number }) => (
+    <Pressable style={[styles.featuredCard, index !== products.length - 1 && { marginRight: 12 }]} android_ripple={{ color: '#ddd' }}>
       <View style={styles.cardImageContainer}>
         {item.image ? <Image source={{ uri: item.image }} style={styles.productImage} resizeMode="cover" /> : <Image source={require('../../assets/images/dms-product.jpg')} style={styles.productImage} resizeMode="cover" />}
         <View style={styles.cardOverlay}>
@@ -145,8 +37,8 @@ export const HomeScreen = () => {
         </View>
       </View>
       <View style={styles.cardContent}>
-        <Text style={styles.productSubtitle}>{item.subtitle}</Text>
-        <Text style={styles.productTitle}>{item.title}</Text>
+        <Text style={styles.productSubtitle}>{item.category}</Text>
+        <Text style={styles.productTitle}>{item.name}</Text>
         <View style={styles.priceContainer}>
           <Text style={styles.productPrice}>{item.price}</Text>
           <Text style={styles.originalPrice}>{item.originalPrice}</Text>
@@ -155,7 +47,7 @@ export const HomeScreen = () => {
     </Pressable>
   );
 
-  const renderCategory = ({ item }: any) => (
+  const renderCategory = ({ item }: { item: Category }) => (
     <Pressable style={styles.categoryCard}>
       <View style={styles.categoryLeft}>
         <View style={styles.categoryIconContainer}>
@@ -163,7 +55,7 @@ export const HomeScreen = () => {
         </View>
         <View style={styles.categoryTextContainer}>
           <Text style={styles.categoryName}>{item.name}</Text>
-          <Text style={styles.categoryCount}>{item.count}</Text>
+          <Text style={styles.categoryCount}>{item.productsCount}+</Text>
         </View>
       </View>
       <RightArrowIcon />
@@ -212,7 +104,7 @@ export const HomeScreen = () => {
               <RightArrowIcon />
             </Pressable>
           </View>
-          <FlatList data={featuredProducts} renderItem={renderFeaturedProduct} horizontal showsHorizontalScrollIndicator={false} />
+          <FlatList data={products} renderItem={renderFeaturedProduct} horizontal showsHorizontalScrollIndicator={false} />
         </View>
 
         {/* Premium Brands */}

@@ -4,31 +4,7 @@ import { StyleSheet, Text, View, ScrollView, Pressable, Image } from 'react-nati
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { DownloadIcon, RefreshIcon, SupportIcon } from '../../../src/assets/icons';
-
-type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'completed' | 'cancelled';
-
-interface OrderItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  image: string;
-}
-
-export interface Order {
-  id: string;
-  orderNumber: string;
-  date: string;
-  status: OrderStatus;
-  items: OrderItem[];
-  subtotal: number;
-  shipping: number;
-  discount: number;
-  total: number;
-  promoCode?: string;
-  deliveryAddress: string;
-  estimatedDelivery?: string;
-}
+import { Order, OrderStatus } from '../../../src/mocks/order.data';
 
 type RootStackParamList = {
   OrderItemScreen: { order: Order };

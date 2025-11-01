@@ -3,7 +3,7 @@ import { ScrollViewContainer } from '../../../src/common/components/Container/Sc
 import { AnimatedFAQCard } from '../../../src/common/components/FAQ/AnimatedFAQCard';
 import React, { useMemo, useState } from 'react';
 import { StyleSheet, Text, LayoutAnimation, SectionList, SectionListRenderItemInfo } from 'react-native';
-import { FAQItem, FAQSection, getFaqs } from '../../../src/mocks/faqs.data';
+import { FAQItem, FAQSection, getFaqs } from '../../../src/mocks/faq.data';
 
 type ExpandedIndex = {
   section: number;

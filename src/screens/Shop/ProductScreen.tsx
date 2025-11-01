@@ -3,122 +3,15 @@ import { ITheme, useTheme } from '../../../src/theme';
 import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Pressable, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ProductDetails, productInfo, ProductVariant } from '../../../src/mocks/product.data';
 
 const { width } = Dimensions.get('window');
-
-interface ProductVariant {
-  id: string;
-  color: string;
-  colorName: string;
-  image: string;
-  inStock: boolean;
-}
-
-interface ProductDetails {
-  id: string;
-  name: string;
-  brand: string;
-  category: string;
-  price: number;
-  originalPrice?: number;
-  discount?: number;
-  rating: number;
-  reviews: number;
-  description: string;
-  features: string[];
-  specifications: { label: string; value: string }[];
-  inStock: boolean;
-  isFavorite: boolean;
-  variants: ProductVariant[];
-}
-
-const mockProduct: ProductDetails = {
-  id: '1',
-  name: 'Filtek Supreme Ultra Universal Composite',
-  brand: '3M ESPE',
-  category: 'Restorative',
-  price: 149.99,
-  originalPrice: 199.99,
-  discount: 25,
-  rating: 4.9,
-  reviews: 328,
-  description: 'Filtek Supreme Ultra Universal Restorative is a nanofilled resin composite that provides excellent esthetics and polish retention. It offers superior strength and handling characteristics for both anterior and posterior restorations.',
-  features: [
-    'Excellent esthetics with natural fluorescence',
-    'Superior polish retention for long-lasting shine',
-    'Low polymerization shrinkage for better marginal integrity',
-    'Wide shade range for precise color matching',
-    'Easy to sculpt and shape',
-    'Contains no Bis-GMA for reduced sensitivity',
-  ],
-  specifications: [
-    { label: 'Type', value: 'Universal Composite' },
-    { label: 'Shade System', value: 'VITA' },
-    { label: 'Filler Content', value: '78.5% by weight' },
-    { label: 'Particle Size', value: '20 nanometers' },
-    { label: 'Curing Time', value: '20 seconds at 1000 mW/cm²' },
-    { label: 'Package', value: '4g Syringe' },
-  ],
-  inStock: true,
-  isFavorite: false,
-  variants: [
-    {
-      id: 'v1',
-      color: '#E8DCC8',
-      colorName: 'A2',
-      image: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=400&fit=crop',
-      inStock: true,
-    },
-    {
-      id: 'v2',
-      color: '#F5EDE0',
-      colorName: 'A1',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=400&fit=crop',
-      inStock: true,
-    },
-    {
-      id: 'v3',
-      color: '#DFC9A8',
-      colorName: 'A3',
-      image: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=400&h=400&fit=crop',
-      inStock: false,
-    },
-    {
-      id: 'v4',
-      color: '#C8B89A',
-      colorName: 'B2',
-      image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&h=400&fit=crop',
-      inStock: true,
-    },
-    {
-      id: 'v5',
-      color: '#f05757af',
-      colorName: 'B3',
-      image: '',
-      inStock: false,
-    },
-    {
-      id: 'v6',
-      color: '#5ff057ae',
-      colorName: 'C2',
-      image: '',
-      inStock: true,
-    },
-    {
-      id: 'v7',
-      color: '#7357f0a8',
-      colorName: 'B3',
-      image: '',
-      inStock: true,
-    },
-  ],
-};
 
 export const ProductScreen = () => {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation();
-  const [product] = useState<ProductDetails>(mockProduct);
+  const [product] = useState<ProductDetails>(productInfo);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(product.variants[0]);
   const [isFavorite, setIsFavorite] = useState(product.isFavorite);
   const [quantity, setQuantity] = useState(1);

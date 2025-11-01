@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useState, useEffect } from 'react';
 import { Alert } from 'react-native';
-import { IUser, users } from '../mocks/users.data';
+import { IUser, users } from '../mocks/user.data';
 
 interface AuthContextType {
   isLoggedIn: boolean | null;
