@@ -3214,7 +3214,6 @@ __metadata:
     react-native-safe-area-context: ^5.6.1
     react-native-screens: ^4.16.0
     react-native-svg: ^15.12.1
-    react-native-swiper: ^1.6.0
     react-redux: ^9.2.0
     react-test-renderer: 19.1.0
     sanitize-html: ^2.17.0
@@ -8288,7 +8287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.10, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -8630,15 +8629,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: fc583e05fcabf346d92fb6ce725ceb076b51c54636352325c2c770b454f91316366a712a12bcd261da0f8ce8c44ebf039c9fc5a1ca508a54a54d048c4f58ede5
-  languageName: node
-  linkType: hard
-
-"react-native-swiper@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "react-native-swiper@npm:1.6.0"
-  dependencies:
-    prop-types: ^15.5.10
-  checksum: 21e7a270dce6d249f718377a8aa2578c9a89b2b076710f6a60dc849ace5b47ade9e071345607947e738c0fdb06b17d9dad6ef99a8f76d7072b13bf3655026225
   languageName: node
   linkType: hard
 

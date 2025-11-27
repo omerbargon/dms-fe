@@ -9,8 +9,7 @@ import { ScrollViewContainer } from '../../../common/components/Container/Scroll
 import { FormPhoneInput } from '../../../common/components/FormItems/FormPhoneInput';
 import { FormOTPEntry } from '../../../common/components/FormItems/FormOTPEntry';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthRootStackParamList } from '../../../navigation/types';
+import { AppNavigationProp } from '../../../navigation/types';
 import { LogoIcon, EnvelopIcon, UserIcon } from '../../../assets/icons';
 import { createSchema } from './schema';
 import { IAuthSignUp, ESignUpStep } from './types';
@@ -19,8 +18,7 @@ import { FormUploadDocument } from '../../../common/components/FormItems/FormUpl
 export const SignUpScreen = () => {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const navigation = useNavigation<NativeStackNavigationProp<AuthRootStackParamList>>();
-
+  const navigation = useNavigation<AppNavigationProp>();
   const [step, setStep] = useState<ESignUpStep>(ESignUpStep.PHONE);
   const [otpPhoneTimer, setOtpPhoneTimer] = useState<number>(60);
   const [otpPhoneResends, setOtpPhoneResends] = useState<number>(0);

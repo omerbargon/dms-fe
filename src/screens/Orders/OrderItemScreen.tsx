@@ -172,15 +172,6 @@ const createStyles = (theme: ITheme) =>
       flex: 1,
       backgroundColor: theme.white,
     },
-    header: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingHorizontal: 20,
-      paddingVertical: 16,
-      borderBottomWidth: 1,
-      borderBottomColor: theme.borderColor,
-    },
     backButton: {
       padding: 4,
     },
@@ -198,7 +189,6 @@ const createStyles = (theme: ITheme) =>
       backgroundColor: theme.appSecondaryColor,
       borderColor: theme.appSecondaryColor,
     },
-
     downloadIcon: {
       width: 22,
       height: 22,
@@ -206,7 +196,9 @@ const createStyles = (theme: ITheme) =>
     },
     content: {
       flex: 1,
-      padding: 20,
+      paddingHorizontal: 20,
+      paddingBottom: 16,
+      paddingTop: 8,
     },
     detailSection: {
       marginBottom: 24,

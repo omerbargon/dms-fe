@@ -1,66 +1,27 @@
-import { RightArrowIcon, CubeIcon, AddToCartIcon, FavoriteIcon, RecentlyViewedIcon, SearchIcon, FilterIcon, LeftArrowIcon, LikeIcon, UnlikeIcon, CategoryIcon, CheckedIcon } from '../../assets/icons';
+import { SearchIcon, LeftArrowIcon, FilterIcon, AddToCartIcon, LikeIcon, UnlikeIcon, CubeIcon } from '../../assets/icons';
 import { ITheme, useTheme } from '../../../src/theme';
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Image, Modal, FlatList } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Image, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppNavigationProp } from '../../../src/navigation/types';
 import { Product, products } from '../../../src/mocks/product.data';
-import { Brand, brands } from '../../../src/mocks/brand.data';
-import { categories, Category } from '../../../src/mocks/category.data';
+import { brands } from '../../../src/mocks/brand.data';
+import { categories } from '../../../src/mocks/category.data';
+import { CheckedIcon } from '../../assets/icons';
 
-export const ShopScreen = () => {
+export const ProductsScreen = () => {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const [viewMode, setViewMode] = useState<'brands' | 'categories' | 'products'>('brands');
-  const [selectedBrand, setSelectedBrand] = useState<Brand | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const [filterInStock, setFilterInStock] = useState(false);
   const [filterBrands, setFilterBrands] = useState<string[]>([]);
   const [filterCategories, setFilterCategories] = useState<string[]>([]);
-const navigation = useNavigation<AppNavigationProp>(); 
- const recentlyViewed: Product[] = products.slice(0, 3);
-  const favorites = products.filter(p => p.isFavorite);
-
-  const getBreadcrumb = () => {
-    const crumbs = ['Shop'];
-    if (selectedBrand) crumbs.push(selectedBrand.name);
-    if (selectedCategory) crumbs.push(selectedCategory.name);
-    return crumbs;
-  };
-
-  const handleBrandSelect = (brand: Brand) => {
-    setSelectedBrand(brand);
-    setViewMode('categories');
-  };
-
-  const handleCategorySelect = (category: Category) => {
-    setSelectedCategory(category);
-    setViewMode('products');
-  };
-
-  const handleBack = () => {
-    if (viewMode === 'products') {
-      setSelectedCategory(null);
-      setViewMode('categories');
-    } else if (viewMode === 'categories') {
-      setSelectedBrand(null);
-      setViewMode('brands');
-    }
-  };
+const navigation = useNavigation<AppNavigationProp>();
 
   const getFilteredProducts = () => {
     let filtered = products;
-
-    if (selectedBrand) {
-      filtered = filtered.filter(p => p.brandId === selectedBrand.id);
-    }
-
-    if (selectedCategory) {
-      filtered = filtered.filter(p => p.categoryId === selectedCategory.id);
-    }
 
     if (searchQuery) {
       filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.brand.toLowerCase().includes(searchQuery.toLowerCase()) || p.category.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -83,6 +44,8 @@ const navigation = useNavigation<AppNavigationProp>();
     return filtered;
   };
 
+  const filteredProducts = getFilteredProducts();
+
   const resetFilters = () => {
     setPriceRange([0, 5000]);
     setFilterInStock(false);
@@ -90,31 +53,8 @@ const navigation = useNavigation<AppNavigationProp>();
     setFilterCategories([]);
   };
 
-  const renderBrandCard = (brand: Brand) => (
-    <Pressable key={brand.id} style={styles.brandCard} onPress={() => handleBrandSelect(brand)} android_ripple={{ color: '#f0f0f0' }}>
-      <View style={[styles.brandLogoContainer]}>
-        {brand.logo ? <Image source={{ uri: brand.logo }} style={styles.brandLogo} resizeMode="contain" /> : <Image source={require('../../assets/images/dms-product.jpg')} style={[styles.productImage, { borderRadius: 30 }]} resizeMode="cover" />}
-      </View>
-      <Text style={styles.brandName}>{brand.name}</Text>
-      <Text style={styles.brandCount}>{brand.productsCount}+ items</Text>
-    </Pressable>
-  );
-
-  const renderCategoryCard = (category: Category) => (
-    <Pressable key={category.id} style={styles.categoryCard} onPress={() => handleCategorySelect(category)} android_ripple={{ color: '#f0f0f0' }}>
-      <View style={styles.categoryIconContainer}>
-        {category.icon ? <Image source={{ uri: category.icon }} style={styles.categoryIcon} resizeMode="contain" /> : <Image source={require('../../assets/images/dms-product.jpg')} style={[styles.productImage, { borderRadius: 30 }]} resizeMode="cover" />}
-      </View>
-      <View style={styles.categoryInfo}>
-        <Text style={styles.categoryName}>{category.name}</Text>
-        <Text style={styles.categoryCount}>{category.productsCount} items</Text>
-      </View>
-      <RightArrowIcon />
-    </Pressable>
-  );
-
-  const renderProductCard = (product: Product, isHorizontal = false) => (
-    <Pressable onPress={() => navigation.navigate('ProductScreen', { product: product.id })} key={product.id} style={[styles.productCard, isHorizontal && styles.productCardHorizontal]} android_ripple={{ color: '#f0f0f0' }}>
+  const renderProductCard = (product: Product) => (
+    <Pressable key={product.id} style={styles.productCard} onPress={() => navigation.navigate('ProductScreen', { product: product.id })} android_ripple={{ color: '#f0f0f0' }}>
       <View style={styles.productImageContainer}>
         {product.image ? <Image source={{ uri: product.image }} style={styles.productImage} resizeMode="cover" /> : <Image source={require('../../assets/images/dms-product.jpg')} style={styles.productImage} resizeMode="cover" />}
         <Pressable style={styles.favoriteButton}>{product.isFavorite ? <LikeIcon /> : <UnlikeIcon />}</Pressable>
@@ -131,7 +71,6 @@ const navigation = useNavigation<AppNavigationProp>();
             {product.name}
           </Text>
         </View>
-
         <View style={styles.productPriceRow}>
           <View>
             <Text style={styles.productPrice}>${product.price.toFixed(2)}</Text>
@@ -247,7 +186,7 @@ const navigation = useNavigation<AppNavigationProp>();
 
           <View style={styles.filterFooter}>
             <Pressable style={styles.applyBtn} onPress={() => setShowFilterModal(false)}>
-              <Text style={styles.applyBtnText}>Apply</Text>
+              <Text style={styles.applyBtnText}>Apply Filters</Text>
             </Pressable>
           </View>
         </View>
@@ -257,23 +196,13 @@ const navigation = useNavigation<AppNavigationProp>();
 
   return (
     <View style={styles.screenContainer}>
+      {/* Header */}
       <View style={styles.header}>
-        <View style={[styles.headerTop, viewMode !== 'brands' && { marginBottom: 12 }]}>
-          {viewMode !== 'brands' && (
-            <Pressable onPress={handleBack} style={styles.backBtn}>
-              <LeftArrowIcon />
-            </Pressable>
-          )}
-          {viewMode !== 'brands' && (
-            <View style={styles.breadcrumbNav}>
-              {getBreadcrumb().map((crumb, idx) => (
-                <View key={idx} style={styles.breadcrumbItem}>
-                  <Text style={[styles.breadcrumbText, idx === getBreadcrumb().length - 1 && styles.breadcrumbActive]}>{crumb}</Text>
-                  {idx < getBreadcrumb().length - 1 && <Text style={styles.separator}>/</Text>}
-                </View>
-              ))}
-            </View>
-          )}
+        <View style={styles.headerTop}>
+          <View style={styles.headerTitleContainer}>
+            <CubeIcon />
+            <Text style={styles.headerTitle}>All Products</Text>
+          </View>
         </View>
 
         <View style={styles.searchFilterContainer}>
@@ -287,78 +216,22 @@ const navigation = useNavigation<AppNavigationProp>();
         </View>
       </View>
 
-      <ScrollView style={styles.mainContent} showsVerticalScrollIndicator={false}>
-        {viewMode === 'brands' && (
-          <>
-            <View style={styles.section}>
-              <View style={styles.sectionHeader}>
-                <View style={styles.sectionTitleContainer}>
-                  <CubeIcon />
+      {/* Results Count */}
+      <View style={styles.resultsHeader}>
+        <Text style={styles.resultsCount}>
+          {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
+        </Text>
+      </View>
 
-                  <Text style={styles.sectionTitle}>Browse Brands</Text>
-                </View>
-                <Pressable style={styles.seeAllButton} onPress={() => navigation.navigate('BrandsScreen')}>
-                  <Text style={styles.seeAllText}>View all </Text>
-                  <RightArrowIcon />
-                </Pressable>
-              </View>
-              <View style={styles.brandsGrid}>{brands.map(brand => renderBrandCard(brand))}</View>
-            </View>
-            {favorites.length > 0 && (
-              <View style={styles.section}>
-                <View style={styles.sectionHeader}>
-                  <View style={styles.sectionTitleContainer}>
-                    <FavoriteIcon />
-                    <Text style={styles.sectionTitle}>Favorite Products</Text>
-                  </View>
-                  <Pressable style={styles.seeAllButton} onPress={() => navigation.navigate('ProductsScreen')}>
-                    <Text style={styles.seeAllText}>View all </Text>
-                    <RightArrowIcon />
-                  </Pressable>
-                </View>
-                <FlatList data={favorites} renderItem={({ item }) => renderProductCard(item, true)} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList} scrollEventThrottle={16} />
-              </View>
-            )}
-
-            {recentlyViewed.length > 0 && (
-              <View style={styles.section}>
-                <View style={styles.sectionHeader}>
-                  <View style={styles.sectionTitleContainer}>
-                    <RecentlyViewedIcon />
-
-                    <Text style={styles.sectionTitle}>Recently Viewed</Text>
-                  </View>
-                  <Pressable style={styles.seeAllButton} onPress={() => navigation.navigate('ProductsScreen')}>
-                    <Text style={styles.seeAllText}>View all </Text>
-                    <RightArrowIcon />
-                  </Pressable>
-                </View>
-                <FlatList data={recentlyViewed} renderItem={({ item }) => renderProductCard(item, true)} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList} scrollEventThrottle={16} />
-              </View>
-            )}
-          </>
-        )}
-
-        {viewMode === 'categories' && (
-          <View style={styles.section}>
-            <View style={styles.sectionHeader}>
-              <View style={styles.sectionTitleContainer}>
-                <CategoryIcon />
-
-                <Text style={styles.sectionTitle}>Select Category</Text>
-              </View>
-            </View>
-            <View style={styles.categoryList}>{categories.map(category => renderCategoryCard(category))}</View>
-          </View>
-        )}
-
-        {viewMode === 'products' && (
-          <View style={styles.section}>
-            <View style={styles.productsHeaderRow}>
-              <Text style={styles.sectionTitle}>Products</Text>
-              <Text style={styles.itemCount}>{getFilteredProducts().length} items</Text>
-            </View>
-            <View style={styles.productsGrid}>{getFilteredProducts().map(product => renderProductCard(product, false))}</View>
+      {/* Products Grid */}
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {filteredProducts.length > 0 ? (
+          <View style={styles.productsGrid}>{filteredProducts.map(product => renderProductCard(product))}</View>
+        ) : (
+          <View style={styles.emptyState}>
+            <CubeIcon />
+            <Text style={styles.emptyTitle}>No products found</Text>
+            <Text style={styles.emptyMessage}>Try adjusting your search or filters to find what you're looking for</Text>
           </View>
         )}
       </ScrollView>
@@ -377,49 +250,29 @@ const createStyles = (theme: ITheme) =>
     header: {
       backgroundColor: theme.white,
       paddingHorizontal: 20,
-      marginTop: 8,
+      paddingTop: 8,
+      paddingBottom: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.borderColor,
     },
     headerTop: {
       flexDirection: 'row',
       alignItems: 'center',
+      marginBottom: 12,
     },
-    backBtn: {
-      padding: 4,
-      marginRight: 8,
-    },
-    breadcrumbNav: {
+    headerTitleContainer: {
       flexDirection: 'row',
       alignItems: 'center',
+      gap: 8,
     },
-    breadcrumbItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    breadcrumbText: {
-      fontSize: 14,
-      paddingHorizontal: 8,
-      paddingVertical: 2,
-      color: theme.appMainColor,
-      borderRadius: 30,
-      backgroundColor: theme.selectedMainColor,
+    headerTitle: {
+      fontSize: 20,
       fontWeight: '700',
-    },
-    breadcrumbActive: {
-      color: theme.appSecondaryColor,
-      borderRadius: 30,
-      backgroundColor: theme.selectedSecondaryColor,
-      paddingHorizontal: 8,
-      paddingVertical: 2,
-      fontWeight: '700',
-    },
-    separator: {
-      marginHorizontal: 6,
-      color: '#D1D5DB',
+      color: theme.black,
     },
     searchFilterContainer: {
       flexDirection: 'row',
       gap: 10,
-      marginBottom: 16,
       alignItems: 'center',
     },
     searchBar: {
@@ -436,7 +289,7 @@ const createStyles = (theme: ITheme) =>
       flex: 1,
       fontSize: 14,
       paddingLeft: 12,
-      paddingVertical: 14,
+      paddingVertical: 12,
       color: '#111827',
     },
     filterButton: {
@@ -449,139 +302,24 @@ const createStyles = (theme: ITheme) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
-    mainContent: {
-      flex: 1,
-    },
-    section: {
-      marginBottom: 24,
-      paddingHorizontal: 16,
-    },
-    sectionHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 16,
-    },
-    sectionTitleContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-    sectionTitle: {
-      fontSize: 20,
-      fontWeight: '700',
-      color: theme.black,
-    },
-    seeAllButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    seeAllText: {
-      fontSize: 15,
-      fontWeight: '500',
-      color: theme.appSecondaryColor,
-    },
-    horizontalList: {
-      gap: 12,
-    },
-    brandsGrid: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      gap: 12,
-    },
-    brandCard: {
-      width: '30%',
-      backgroundColor: theme.white,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.borderColor,
-      padding: 12,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    brandLogoContainer: {
-      width: 56,
-      height: 56,
-      borderRadius: 28,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 8,
-    },
-    brandLogo: {
-      width: '100%',
-      borderRadius: 28,
-      height: '100%',
-    },
-    brandName: {
-      fontSize: 12,
-      fontWeight: '700',
-      color: theme.black,
-      textAlign: 'center',
-      marginBottom: 3,
-    },
-    productNameWrapper: {
-      minHeight: 40,
-      marginBottom: 6,
-      justifyContent: 'flex-start',
-    },
-    brandCount: {
-      fontSize: 10,
-      color: '#9CA3AF',
-      textAlign: 'center',
-    },
-    categoryList: {
-      gap: 10,
-    },
-    categoryCard: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: theme.white,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.borderColor,
-      paddingHorizontal: 14,
+    resultsHeader: {
+      paddingHorizontal: 20,
       paddingVertical: 12,
+      backgroundColor: theme.white,
     },
-    categoryIconContainer: {
-      width: 44,
-      height: 44,
-      borderRadius: 22,
-      backgroundColor: '#F3F4F6',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginRight: 12,
-    },
-    categoryIcon: {
-      width: 24,
-      height: 24,
-    },
-    categoryInfo: {
-      flex: 1,
-    },
-    categoryName: {
-      fontSize: 14,
-      fontWeight: '700',
-      color: theme.black,
-      marginBottom: 2,
-    },
-    categoryCount: {
-      fontSize: 11,
-      color: '#9CA3AF',
-    },
-    productsHeaderRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 12,
-    },
-    itemCount: {
+    resultsCount: {
       fontSize: 13,
-      color: '#9CA3AF',
+      color: '#6B7280',
       fontWeight: '500',
+    },
+    content: {
+      flex: 1,
     },
     productsGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
+      paddingHorizontal: 20,
+      paddingBottom: 20,
       gap: 12,
     },
     productCard: {
@@ -591,10 +329,6 @@ const createStyles = (theme: ITheme) =>
       borderWidth: 1,
       borderColor: theme.borderColor,
       overflow: 'hidden',
-    },
-    productCardHorizontal: {
-      width: 180,
-      flexShrink: 1,
     },
     productImageContainer: {
       height: 140,
@@ -642,12 +376,16 @@ const createStyles = (theme: ITheme) =>
       textTransform: 'uppercase',
       marginBottom: 3,
     },
+    productNameWrapper: {
+      minHeight: 40,
+      marginBottom: 6,
+      justifyContent: 'flex-start',
+    },
     productName: {
       fontSize: 13,
       fontWeight: '700',
       color: theme.black,
       lineHeight: 16,
-      marginBottom: 6,
     },
     productPriceRow: {
       flexDirection: 'row',
@@ -669,10 +407,24 @@ const createStyles = (theme: ITheme) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
-    cartIcon: {
-      width: 12.5,
-      height: 12.5,
-      tintColor: '#FFFFFF',
+    emptyState: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 60,
+      paddingHorizontal: 40,
+    },
+    emptyTitle: {
+      fontSize: 18,
+      fontWeight: '700',
+      color: theme.black,
+      marginTop: 16,
+      marginBottom: 8,
+    },
+    emptyMessage: {
+      fontSize: 14,
+      color: '#6B7280',
+      textAlign: 'center',
+      lineHeight: 20,
     },
     modalOverlay: {
       flex: 1,

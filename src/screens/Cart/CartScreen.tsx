@@ -462,7 +462,7 @@ const createStyles = (theme: ITheme) =>
     header: {
       backgroundColor: theme.white,
       paddingHorizontal: 20,
-      paddingBottom: 12,
+      paddingVertical: 8,
       borderBottomWidth: 1,
       borderBottomColor: theme.borderColor,
     },
@@ -496,7 +496,7 @@ const createStyles = (theme: ITheme) =>
       flex: 1,
       fontSize: 14,
       paddingLeft: 12,
-      paddingVertical: 12,
+      paddingVertical: 14,
       color: '#111827',
     },
     groupButton: {

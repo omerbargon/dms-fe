@@ -53,7 +53,7 @@ const createStyles = (theme: ITheme) =>
       color: theme.black,
     },
     bulletColor: {
-      color: theme.appMainColor,
-      fontSize: 20,
+      color: theme.appSecondaryColor,
+      fontSize: 19,
     },
   });

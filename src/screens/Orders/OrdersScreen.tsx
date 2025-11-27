@@ -3,12 +3,11 @@ import { Modalize } from 'react-native-modalize';
 import { ITheme, useTheme } from '../../../src/theme';
 import React, { useMemo, useState, useRef } from 'react';
 import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Image } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/types';
+import { AppNavigationProp } from '../../navigation/types';
 import { Order, orders, OrderStatus } from '../../../src/mocks/order.data';
 
 interface OrdersScreenProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'OrdersScreen'>;
+  navigation: AppNavigationProp;
 }
 
 export const OrdersScreen = ({ navigation }: OrdersScreenProps) => {
@@ -206,7 +205,7 @@ const createStyles = (theme: ITheme) =>
     header: {
       backgroundColor: theme.white,
       paddingHorizontal: 20,
-      paddingTop: 6,
+      paddingVertical: 8,
       borderBottomWidth: 1,
       borderBottomColor: theme.borderColor,
     },

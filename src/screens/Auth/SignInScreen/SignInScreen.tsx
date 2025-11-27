@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useMemo, useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useForm } from '../../../../src/common/components/FormItems/context';
 import { AuthContext } from '../../../../src/navigation/AuthProvider';
 import { FormProvider } from '../../../../src/common/components/FormItems/FormProvider';
@@ -10,7 +9,7 @@ import { FormPhoneInput } from '../../../../src/common/components/FormItems/Form
 import { Button } from '../../../../src/common/components/Button/Button';
 import { ScrollViewContainer } from '../../../../src/common/components/Container/ScrollViewContainer';
 import { ITheme, useTheme } from '../../../../src/theme';
-import { AuthRootStackParamList } from '../../../navigation/types';
+import { AppNavigationProp } from '../../../navigation/types';
 import { EnvelopIcon, LogoIcon } from '../../../assets/icons';
 import { UseFormReturn } from 'react-hook-form';
 import { createPhoneStep1Schema, createPhoneStep2Schema } from './schema';
@@ -21,7 +20,7 @@ import { FormOTPEntry } from '../../../../src/common/components/FormItems/FormOT
 export const SignInScreen = () => {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const navigation = useNavigation<NativeStackNavigationProp<AuthRootStackParamList>>();
+  const navigation = useNavigation<AppNavigationProp>();
   const authContext = useContext(AuthContext);
   const [currentStep, setCurrentStep] = useState<'credentials' | 'otp'>('credentials');
   const [otpTimer, setOtpTimer] = useState<number>(60);

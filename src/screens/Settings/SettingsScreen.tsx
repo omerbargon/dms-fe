@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, I18nManager, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
@@ -9,7 +8,7 @@ import { ScrollViewContainer } from '../../../src/common/components/Container/Sc
 import { useLanguage } from '../../../src/locales/LanguageProvider';
 import { AuthContext } from '../../../src/navigation/AuthProvider';
 import { ITheme, useTheme } from '../../../src/theme';
-import { RootStackParamList } from '../../navigation/types';
+import { AppNavigationProp, RootStackParamList } from '../../navigation/types';
 
 type MenuItem = {
   label: string;
@@ -21,7 +20,7 @@ type MenuItem = {
 export const SettingsScreen = () => {
   const { mode, theme, toggleTheme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+const navigation = useNavigation<AppNavigationProp>();
   const modeModalRef = useRef<Modalize>(null);
   const languageModalRef = useRef<Modalize>(null);
   const { logout } = useContext(AuthContext);
@@ -135,7 +134,12 @@ export const SettingsScreen = () => {
             <View style={styles.titleAccent} />
           </View>
 
-          <View style={styles.modernItem}>
+          <Pressable
+            style={styles.modernItem}
+            onPress={() => {
+              navigation.navigate('NotificationSettingsScreen');
+            }}
+          >
             <View style={styles.itemIconContainer}>
               <NotificationIcon />
             </View>
@@ -146,7 +150,7 @@ export const SettingsScreen = () => {
             <View style={styles.itemValueContainer}>
               <RightArrowIcon />
             </View>
-          </View>
+          </Pressable>
         </View>
 
         <View style={styles.card}>

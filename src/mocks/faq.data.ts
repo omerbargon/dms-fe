@@ -9,7 +9,7 @@ export type FAQSection = {
   data: FAQItem[];
 };
 
-export const Faqs: FAQSection[] = [
+export const faqs: FAQSection[] = [
   {
     id: '1',
     title: 'General Information',
@@ -66,7 +66,6 @@ export const Faqs: FAQSection[] = [
   },
 ];
 
-//GET ALL FAQS: https://mobile.taminet.app/api/faqs
 export const getFaqs = (): FAQSection[] => {
-  return Faqs;
+  return faqs;
 };

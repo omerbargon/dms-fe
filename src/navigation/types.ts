@@ -1,9 +1,10 @@
-import { Order } from '../screens/Orders/OrderItemScreen';
+import { Order } from '../mocks/order.data';
+import { CompositeNavigationProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 export type RootStackParamList = {
-  // HOME STACK
   HomeScreen: undefined;
-  // Settings STACK
   SettingsScreen: undefined;
   PrivacyPolicy: undefined;
   TermsAndConditions: undefined;
@@ -12,15 +13,35 @@ export type RootStackParamList = {
   OrderItemScreen: { order: Order };
   ShopScreen: undefined;
   ProductScreen: { product: string };
+  NotificationsScreen: undefined;
+  NotificationSettingsScreen: undefined;
+  CategoriesScreen: undefined;
+  BrandsScreen: undefined;
+  ProductsScreen: undefined;
 };
 
 export type RootBottomTabStackParamList = {
   //BOTTOM TABS
-  HomeTab: undefined;
-  ShopTab: undefined;
-  OrdersTab: undefined;
-  CartTab: undefined;
-  SettingsTab: undefined;
+  HomeTab: {
+    screen: keyof RootStackParamList;
+    params?: any;
+  };
+  ShopTab: {
+    screen: keyof RootStackParamList;
+    params?: any;
+  };
+  OrdersTab: {
+    screen: keyof RootStackParamList;
+    params?: any;
+  };
+  CartTab: {
+    screen: keyof RootStackParamList;
+    params?: any;
+  };
+  SettingsTab: {
+    screen: keyof RootStackParamList;
+    params?: any;
+  };
 };
 
 export type AuthRootStackParamList = {
@@ -31,8 +52,16 @@ export type AuthRootStackParamList = {
   ForgotPassword: undefined;
 };
 
+export type AppNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<RootStackParamList & AuthRootStackParamList>,
+  BottomTabNavigationProp<RootBottomTabStackParamList>
+>;
+
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList
+      extends RootStackParamList,
+        AuthRootStackParamList,
+        RootBottomTabStackParamList {}
   }
 }

@@ -10,14 +10,13 @@ import { EnvelopIcon, LogoIcon } from '../../../assets/icons';
 import { IForgotPassword } from './types';
 import { createSchema } from './schema';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthRootStackParamList } from '../../../navigation/types';
+import { AppNavigationProp } from '../../../navigation/types';
 
 export const ForgotPasswordScreen = () => {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const schema = useMemo(() => createSchema(), []);
-  const navigation = useNavigation<NativeStackNavigationProp<AuthRootStackParamList>>();
+  const navigation = useNavigation<AppNavigationProp>();
 
   const formMethods = useForm<IForgotPassword>({
     schema,

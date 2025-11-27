@@ -15,6 +15,11 @@ import { ShopScreen } from '../screens/Shop/ShopScreen';
 import { OrdersScreen } from '../screens/Orders/OrdersScreen';
 import { OrderItemScreen } from '../screens/Orders/OrderItemScreen';
 import { ProductScreen } from '../screens/Shop/ProductScreen';
+import { NotificationsScreen } from '../screens/Notifications/NotificationsScreen';
+import { NotificationSettingsScreen } from '../screens/Notifications/NotificationSettingsScreen';
+import { BrandsScreen } from '../screens/Shop/BrandsScreen';
+import { CategoriesScreen } from '../screens/Shop/CategoriesScreen';
+import { ProductsScreen } from '../screens/Shop/ProductsScreen';
 
 const Tab = createBottomTabNavigator<RootBottomTabStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,13 +34,16 @@ const HomeStack = () => {
         },
         headerTitle: '',
         headerShadowVisible: false,
-        headerBackVisible: false,
+        headerBackVisible: true,
+        headerTintColor: theme.black,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{
+        options={({ navigation }) => ({
+          headerBackVisible: false,
           headerLeft: () => (
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
               <Image source={require('../assets/images/dms-user.png')} style={{ width: 42, height: 42, borderRadius: 24, borderWidth: 1, borderColor: theme.borderColor }} />
@@ -43,12 +51,13 @@ const HomeStack = () => {
             </View>
           ),
           headerRight: () => (
-            <Pressable onPress={() => console.log('Notifications pressed')}>
+            <Pressable onPress={() => navigation.navigate('NotificationsScreen')}>
               <NotificationIcon />
             </Pressable>
           ),
-        }}
+        })}
       />
+      <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} options={{ headerTitle: 'Notifications' }} />
     </Stack.Navigator>
   );
 };
@@ -66,6 +75,7 @@ const OrdersStack = () => {
         },
         headerTintColor: theme.black,
         headerShadowVisible: false,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
       <Stack.Screen name="OrdersScreen" component={OrdersScreen} options={{ headerTitle: 'Orders' }} />
@@ -87,10 +97,15 @@ const ShopStack = () => {
         },
         headerTintColor: theme.black,
         headerShadowVisible: false,
+        headerBackVisible: true,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
       <Stack.Screen name="ShopScreen" component={ShopScreen} options={{ headerTitle: 'Shop' }} />
       <Stack.Screen name="ProductScreen" component={ProductScreen} options={{ headerTitle: 'Product Details' }} />
+      <Stack.Screen name="BrandsScreen" component={BrandsScreen} options={{ headerTitle: 'Brands' }} />
+      <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ headerTitle: 'Categories' }} />
+      <Stack.Screen name="ProductsScreen" component={ProductsScreen} options={{ headerTitle: 'Products' }} />
     </Stack.Navigator>
   );
 };
@@ -106,6 +121,7 @@ const SettingsStack = () => {
         headerTitleStyle: {
           color: theme.black,
         },
+        headerBackButtonDisplayMode: 'minimal',
         headerTintColor: theme.black,
         headerShadowVisible: false,
       }}
@@ -114,6 +130,7 @@ const SettingsStack = () => {
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ headerBackVisible: true, headerTitle: 'Privacy Policy', headerBackButtonDisplayMode: 'minimal' }} />
       <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} options={{ headerTitle: 'Terms & Conditions', headerBackButtonDisplayMode: 'minimal' }} />
       <Stack.Screen name="FAQs" component={FAQsScreen} options={{ headerTitle: 'FAQs', headerBackButtonDisplayMode: 'minimal' }} />
+      <Stack.Screen name="NotificationSettingsScreen" component={NotificationSettingsScreen} options={{ headerTitle: 'Notification Settings' }} />
     </Stack.Navigator>
   );
 };
@@ -125,7 +142,7 @@ export const MainNavigator = () => {
       initialRouteName="HomeTab"
       screenOptions={{
         tabBarStyle: {
-          height: 72,
+          height: 78,
           paddingTop: 5,
           backgroundColor: theme.white,
           borderColor: theme.borderColor,
@@ -141,6 +158,7 @@ export const MainNavigator = () => {
           fontWeight: '600',
           paddingTop: 5,
         },
+        headerBackButtonDisplayMode: 'minimal',
         headerShadowVisible: false,
         tabBarPosition: 'bottom',
         tabBarActiveTintColor: theme.appSecondaryColor,

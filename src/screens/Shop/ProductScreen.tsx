@@ -1,4 +1,4 @@
-import { AddToCartIcon, LikeIcon, UnlikeIcon, ShareIcon, StarIcon, ShadeIcon, QuantityIcon, SpecificationsIcon, AddFavoriteIcon } from '../../assets/icons';
+import { AddToCartIcon, LikeIcon, ShareIcon, StarIcon, ShadeIcon, QuantityIcon, SpecificationsIcon, AddFavoriteIcon } from '../../assets/icons';
 import { ITheme, useTheme } from '../../../src/theme';
 import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Pressable, Image, Dimensions } from 'react-native';

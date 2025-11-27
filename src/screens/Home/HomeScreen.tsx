@@ -5,10 +5,13 @@ import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, FlatList, Ima
 import { categories, Category } from '../../../src/mocks/category.data';
 import { Brand, brands } from '../../../src/mocks/brand.data';
 import { Product, products } from '../../../src/mocks/product.data';
+import { useNavigation } from '@react-navigation/native';
+import { AppNavigationProp } from '../../../src/navigation/types';
 
 export const HomeScreen = () => {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const navigation = useNavigation<AppNavigationProp>();
 
   const renderBrand = ({ item, index }: { item: Brand; index: number }) => (
     <Pressable style={[styles.brandCard, index !== brands.length - 1 && { marginRight: 12 }]}>
@@ -62,6 +65,12 @@ export const HomeScreen = () => {
     </Pressable>
   );
 
+  const goToShop = () => {
+    navigation.navigate('ShopTab', {
+      screen: 'ShopScreen',
+    });  }; 
+
+
   return (
     <View style={styles.screenContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -99,7 +108,7 @@ export const HomeScreen = () => {
 
               <Text style={styles.sectionTitle}>Featured Products</Text>
             </View>
-            <Pressable style={styles.seeAllButton}>
+            <Pressable style={styles.seeAllButton} onPress={goToShop}>
               <Text style={styles.seeAllText}>View all </Text>
               <RightArrowIcon />
             </Pressable>
@@ -116,7 +125,7 @@ export const HomeScreen = () => {
               </View>
               <Text style={styles.sectionTitle}>Premium Brands</Text>
             </View>
-            <Pressable style={styles.seeAllButton}>
+            <Pressable style={styles.seeAllButton} onPress={goToShop}>
               <Text style={styles.seeAllText}>View all </Text>
               <RightArrowIcon />
             </Pressable>
@@ -132,7 +141,7 @@ export const HomeScreen = () => {
 
               <Text style={styles.sectionTitle}>Browse Categories</Text>
             </View>
-            <Pressable style={styles.seeAllButton}>
+            <Pressable style={styles.seeAllButton} onPress={goToShop}>
               <Text style={styles.seeAllText}>View all </Text>
               <RightArrowIcon />
             </Pressable>
@@ -158,7 +167,7 @@ const createStyles = (theme: ITheme) =>
       paddingHorizontal: 20,
     },
     searchSection: {
-      marginTop: 6,
+      marginTop: 8,
       marginBottom: 12,
     },
     searchBar: {
@@ -174,7 +183,7 @@ const createStyles = (theme: ITheme) =>
       flex: 1,
       fontSize: 14,
       paddingLeft: 12,
-      paddingVertical: 12,
+      paddingVertical: 14,
       color: '#111827',
     },
     section: {
